@@ -1,7 +1,7 @@
 ## Author
 
-- **Name:** Shuo Wang, Jiateng Wang
-- **Email:** shuow6@illinois.edu, jiateng3@illinois.edu
+- **Name:** Jiateng Wang, Shuo Wang
+- **Email:** jiateng3@illinois.edu, shuow6@illinois.edu
 
 ## Purpose
 
