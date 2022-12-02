@@ -3,6 +3,7 @@
 #load package
 library(shiny)
 library(tidyverse)
+library(shinyWidgets)
 
 #import dataset
 pokemon <- read_csv("data/pokemon.csv")
@@ -15,6 +16,14 @@ pokemon$type_2 <- as.factor(pokemon$type_2)
 pokemon$generation <- as.factor(pokemon$generation)
 pokemon[which(is.na(pokemon$weight_kg)),]$weight_kg <- 0
 pokemon[which(is.na(pokemon$height_m)),]$height_m <- 0
+
+backgroundImageCSS <- "/* background-color: #cccccc; */
+                       height: 80vh;
+                       background-position: center;
+                       background-repeat: no-repeat;
+                       /* background-size: cover; */
+                       background-image: url('%s');
+                       "
 
 ui <- navbarPage(
   tags$head(tags$style(
@@ -33,10 +42,12 @@ ui <- navbarPage(
       }"
     )
   )),
-  title = img(src = "logo.svg", height = 40),
+  title = img(src = "logo.svg", height = 38),
+  
   tabPanel(
     title = "Data Visualization",
     titlePanel(title = "Pokemon Type Distribution Until Gen 8"),
+    style = sprintf(backgroundImageCSS,  "IMG_1168.JPG"),
     sidebarLayout(
       sidebarPanel(
         selectInput(
@@ -60,15 +71,15 @@ ui <- navbarPage(
           value = c(min(pokemon$height_m), max(pokemon$height_m))
         ),
         submitButton("Apply changes", icon("refresh")),
-        
-        
       ),
       mainPanel(plotOutput("plot"))
     )
+    
   ),
   tabPanel(
     title = "Summary Table",
     titlePanel(title = "Pokemon Species Strength Summary Table Across 8 Generations"),
+    style = sprintf(backgroundImageCSS,  "IMG_1168.JPG"),
     sidebarLayout(
       sidebarPanel(
         selectInput(
@@ -82,18 +93,14 @@ ui <- navbarPage(
       ),
       mainPanel(
         verbatimTextOutput("summary"),
-        img(
-          src = "background2.jpeg",
-          height = 300,
-          width = 575
-        )
-      ),
+      )
     )
     
   ),
+  
   tabPanel(title = "About",
-           includeMarkdown("about.Rmd")),
-  img(src = "background1.jpeg", width = 878)
+           includeMarkdown("about.Rmd")
+  )
 )
 
 # Define server logic required to draw a histogram
